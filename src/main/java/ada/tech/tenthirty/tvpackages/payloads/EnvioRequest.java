@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class EnvioRequest {
 
+    
     private String cep;
     private String rua;
     private String bairro;
