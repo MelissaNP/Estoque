@@ -1,0 +1,68 @@
+server:
+  servlet:
+    context-path: /
+  port: 8085
+  compression:
+    mime-types:
+      - application/json
+
+spring:
+  application:
+    name: default-arquetype
+  main:
+    allow-bean-definition-overriding: true
+#Remove this feature to enable database connections
+#  autoconfigure:
+ #   exclude:
+  #    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  liquibase:
+    enabled: false
+##  --------
+
+## Enabling database connection
+  datasource:
+    url: jdbc:postgresql://localhost:5432/estoque
+    username: postgres
+    password: mel679806
+  jpa:
+    open-in-view: false
+    show-sql: true
+    format-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+  sql:
+    init:
+      continue-on-error: true
+
+## Enable liquidbase
+
+#  liquibase:
+#    enabled: true
+#    change-log: classpath:db/changelog/changelog-local.xml
+
+##Enabling rabbitmq
+
+rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    cache:
+      connection:
+        mode: CONNECTION
+      channel:
+        size: 50
+      checkout-timeout: 10000
+
+negocio:
+  estoque:
+    fila-estoque: Informar-Erro-Estoque
+    fila-envio: Informar-Erro-Envio
+    routing-key: "*-Error-*"
+    url: http://localhost/{porta-api-envio}/{metodo}
+
