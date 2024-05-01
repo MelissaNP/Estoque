@@ -13,8 +13,8 @@ spring:
     allow-bean-definition-overriding: true
 #Remove this feature to enable database connections
 #  autoconfigure:
- #   exclude:
-  #    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#   exclude:
+#    - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   liquibase:
     enabled: false
 ##  --------
@@ -64,5 +64,5 @@ negocio:
     fila-estoque: Informar-Erro-Estoque
     fila-envio: Informar-Erro-Envio
     routing-key: "*-Error-*"
-    url: http://localhost/{porta-api-envio}/{metodo}
-
+  envio:
+    url: https://kr209.wiremockapi.cloud/entrega

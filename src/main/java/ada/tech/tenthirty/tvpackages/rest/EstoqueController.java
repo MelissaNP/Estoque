@@ -1,6 +1,8 @@
 package ada.tech.tenthirty.tvpackages.rest;
 
 
+import ada.tech.tenthirty.tvpackages.cliente.EnvioClient;
+import ada.tech.tenthirty.tvpackages.payloads.EnvioRequest;
 import ada.tech.tenthirty.tvpackages.payloads.ErroPayload;
 import ada.tech.tenthirty.tvpackages.payloads.EstoqueRequest;
 import ada.tech.tenthirty.tvpackages.payloads.ItemRequest;
@@ -24,24 +26,32 @@ public class EstoqueController {
     private final ItemEstoqueServiceImpl serviceItemEstoque;
     private final AdicionarItemService adicionarItemService;
     private final EstoqueProducer estoqueProducer;
+    private final EnvioClient envioClient;
     
-    public EstoqueController(AdicionarItemService adicionarItemService,
-                             ItemEstoqueServiceImpl serviceItemEstoque,
-                             EstoqueProducer estoqueProducer) {
+    public EstoqueController(AdicionarItemService adicionarItemService, ItemEstoqueServiceImpl serviceItemEstoque, EstoqueProducer estoqueProducer, EnvioClient envioClient) {
         this.adicionarItemService = adicionarItemService;
         this.serviceItemEstoque = serviceItemEstoque;
         this.estoqueProducer = estoqueProducer;
+        this.envioClient = envioClient;
     }
     
     @PostMapping("/processarcompra")
     public ResponseEntity removerItensEstoque(@RequestBody @Valid EstoqueRequest request) {
-        System.out.println("Tentativa de processar....");
+        
         boolean disponivel = serviceItemEstoque.disponivel(request.getItens());
         
         if (disponivel) {
-            System.out.println("está disponivel");
             serviceItemEstoque.remove(request.getItens());
-            // Manda msg de sucesso no RABBIT
+            envioClient.enviarDadosEnvio(new EnvioRequest(request.getId_compra(),
+                    request.getId_cliente(),
+                    request.getEnvio().getCep(),
+                    request.getEnvio().getRua(),
+                    request.getEnvio().getBairro(),
+                    request.getEnvio().getCidade(),
+                    request.getEnvio().getEstado(),
+                    request.getEnvio().getNumero(),
+                    request.getEnvio().getDestinatario()
+            ));
         } else {
             var erroPayload = new ErroPayload();
             
@@ -55,7 +65,6 @@ public class EstoqueController {
     
     @PostMapping("/adicionar-itens")
     public ResponseEntity<String> adicionarItensAoEstoque(@RequestBody List<ItemRequest> itens) {
-        System.out.println("entrou");
         try {
             adicionarItemService.adicionarItens(itens);
             return ResponseEntity.ok("Itens adicionados com sucesso.");

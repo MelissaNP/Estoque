@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Data
+
 public class EstoqueRequest {
     
     private String id_compra;

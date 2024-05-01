@@ -2,13 +2,16 @@ package ada.tech.tenthirty.tvpackages.cliente;
 
 
 import ada.tech.tenthirty.tvpackages.payloads.EnvioRequest;
-import jakarta.annotation.PostConstruct;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.cloud.openfeign.FeignClient;
 
+
+@FeignClient(name = "envioClient", url = "${negocio.envio.url}")
 public interface EnvioClient {
-    
-    @PostExchange(value= "/")
-    EnvioRequest mandarEndereco( @RequestBody EnvioRequest envio);
-    
+    @RequestMapping(method = RequestMethod.POST, value = "/", consumes = "application/json")
+    void enviarDadosEnvio(@RequestBody EnvioRequest dadosEnvio);
 }

@@ -24,7 +24,7 @@ public class EstoqueConsumer {
             String mensagemString = new String(message.getBody());
             ErroPayload informarErro = objectMapper.readValue(mensagemString, ErroPayload.class);
             log.info("Mensagem falha envio {}", informarErro);
-        
+            
              channel.basicAck(message.getMessageProperties().getDeliveryTag(), true);
         } catch (IOException e) {
             throw new RuntimeException(e);
