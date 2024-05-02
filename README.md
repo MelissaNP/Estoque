@@ -14,9 +14,9 @@ Este microsserviço é parte de uma arquitetura distribuída, e se comunica via 
 ## Índice
 
 - [Ferramentas Utilizadas](#ferramentas-utilizadas)
-- [Pré-requisitos e Instruções de Execução](#pré-requisitos-e-instruções-de-execução)
-- [Fluxo de Integração dos microsserviços](#fluxo-de-integração-dos-microsserviços)
-- [Fluxo de Dados Para Requisições  REST e RabbitMQ](#fluxo-de-dados-para-requisições-rest-e-rabbitmq)
+- [Pré-requisitos e Instruções de Execução](#pre-requisitos-e-instrucoes-de-execucao)
+- [Fluxo de Integração dos Microsserviços](#fluxo-de-integração-dos-microsserviços)
+- [Fluxo de Dados Para Requisições REST e RabbitMQ](#fluxo-de-dados-para-requisições-rest-e-rabbitmq)
 - [Contribua!](#contribua)
 - [Licença](#licença)
 - [Desenvolvedoras](#desenvolvedoras)
@@ -40,13 +40,11 @@ Este microsserviço é parte de uma arquitetura distribuída, e se comunica via 
 3. Configure as URLs de Estoque e Envio no arquivo ` application `
 4. Execute o projeto usando sua IDE de preferência (Ex.: IntelliJ IDEA, Eclipse).
 
-## Fluxo de Integração dos microsserviços
-![Texto Alternativo](https://drive.google.com/file/d/1IT_VqgNxc2ZXj-ZlHi3WPwz5JX1pNi4r/view?usp=share_link)
+## Fluxo de Integração dos Microsserviços
+![Fluxo de Integração dos Microsserviços](assets/fluxo-microsservicos.JPG)
 
 ## Fluxo de Dados Para Requisições REST e RabbitMQ
-
-![Texto Alternativo](https://drive.google.com/file/d/1IT_VqgNxc2ZXj-ZlHi3WPwz5JX1pNi4r/view?usp=share_link)
-
+![Fluxo de Dados - Requisições REST e RabbitMQ](assets/comunicacoes-rest-e-mensageria.JPG)
 
 ### Descrição da Estrutura JSON
 
